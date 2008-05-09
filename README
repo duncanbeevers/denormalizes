@@ -1,0 +1,18 @@
+Denormalizes provides a clean syntax for specifying observation
+and denormalization rules between ActiveRecord models.
+
+  class UserScore < ActiveRecord::Base
+    belongs_to :user
+    named_scope_for :user_id
+
+    denormalizes :score, :from => :user
+  end
+
+There are a number of common-sense conventions in use here.
+First, the denormalization model must have reflection onto the
+observed model in the form of a has_one or belongs_to.
+
+Second, denormalized values can only be activerecord attributes
+of the observed model, (must be columns in the database) and
+the observer model's columns must match those of the observed
+model.
